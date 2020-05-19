@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Linking Script")]
+    [SerializeField] GameObject enemyObject;
     [Header("On Death")]
     [Tooltip("FX prefab on death")] [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
@@ -24,13 +26,13 @@ public class Enemy : MonoBehaviour
     }
     private void addNonTriggerBoxCollider()
     {
-        Collider boxCollider = gameObject.AddComponent<BoxCollider>();
+        Collider boxCollider = enemyObject.AddComponent<BoxCollider>();
         boxCollider.isTrigger = false;
     }
     private void OnParticleCollision(GameObject other)
     {
         healthPoint = healthPoint - damagePerHit;
-        print(healthPoint);
+        //print(healthPoint);
         //todo consider hit FX
         if (healthPoint < 1)
         {
@@ -42,7 +44,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity) as GameObject;
         fx.transform.parent = parent;
-        Destroy(fx, 5f); // todo customize it    
+        Destroy(fx, 0.5f); // todo customize it    
         Destroy(gameObject);
     }
 }

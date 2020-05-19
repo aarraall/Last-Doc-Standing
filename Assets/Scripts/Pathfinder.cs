@@ -24,14 +24,22 @@ public class Pathfinder : MonoBehaviour
     public Waypoint GetEndPoint() { return endWayPoint; }
     private void Awake()
     {
+        CalculatePath();
+    }
 
+    private void CalculatePath()
+    {
         LoadBlocks();
         BreadthFirstSearch();
     }
+
     public List<Waypoint> GetPath() 
     {
-        CreatePath();
-        return path; 
+        if(path.Count == 0)
+        {
+            CreatePath();          
+        }
+            return path;
     }
     private void CreatePath()
     {
@@ -111,7 +119,7 @@ public class Pathfinder : MonoBehaviour
             else
             {
                 grid.Add(gridPos, waypoint);
-                waypoint.SetTopColor(Color.cyan);
+                //waypoint.SetTopColor(Color.cyan);
             }
         }
     }
