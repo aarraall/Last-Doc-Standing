@@ -94,7 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyObject: {fileID: 1670769395893272}
   deathFX: {fileID: 4679811556638100684, guid: 04c8831397d1f8841b731bd4ad9a644f, type: 3}
-  parent: {fileID: 0}
+  parentOfDead: {fileID: 7482356989931115160, guid: 2a7b0f9b946394d499bbd7a4c37c759b,
+    type: 3}
   healthPoint: 200
   damagePerHit: 20
 --- !u!54 &1507213358

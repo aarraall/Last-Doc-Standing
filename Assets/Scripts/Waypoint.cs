@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
-{
-    Color[] colorField = { Color.red, Color.blue, Color.green };
-    Pathfinder pathfinder;
+{   
     public bool isExplored = false;
-    public Waypoint exploredFrom; 
+    public Waypoint exploredFrom;
+    public bool isPlaceable = true;
     const int gridSize = 10;
     public int GetGridSize() => gridSize;
 
+    private void Start()
+    {
+        Physics.queriesHitTriggers = true;
+    }
     public Vector2Int GetGridPos()
     {
         return new Vector2Int(
@@ -18,45 +21,22 @@ public class Waypoint : MonoBehaviour
         Mathf.RoundToInt(transform.position.z / gridSize)
         );
     }
-    public void SetTopColor(Color color)
+    private void OnMouseOver()
     {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
-    } 
-    private void ColoringConditions()
-    {
-        if (this == pathfinder.GetStartPoint())
-
+        if (Input.GetMouseButtonDown(0))
         {
-
-            SetTopColor(colorField[0]);
-
-        }
-
-        else if (this == pathfinder.GetEndPoint())
-
-        {
-
-            SetTopColor(colorField[1]);
-
-        }
-
-        else if (isExplored)
-
-        {
-
-            SetTopColor(colorField[2]);
+            if (isPlaceable)
+            {
+                FindObjectOfType<TowerFactory>().AddTower(this);
+            }
+            else
+            {
+                Debug.Log(gameObject + " can't place here");
+            }
 
         }
     }
-    private void Start()
-    {
-        pathfinder = GetComponentInParent<Pathfinder>();
-    }
-    private void Update()
-    {
-        ColoringConditions();
-    }
 
-   
+
+
 }
